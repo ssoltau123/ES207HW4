@@ -238,7 +238,14 @@ NotCompleteAddress <- length(AllFilters) - sum(is.na(AllFilters))  #Count total 
 
 ```{r}
 
-NumSan <- as.double(str_detect(location$"Site Name", "San"))
+str_which(location$Address, "Address Not Known")
+str_which(location, "Location Approximate")
+str_which(location$'Zip Code', "\\b..\\b") #incomplete Zip Code (only 2 digits?)
+
+sum(is.na(location$Address))
+sum(is.na(location$`Zip Code`))
+length(unique(location[is.na(location$Address) | is.na(location$`Zip Code`),]$Site))
+
 
 ```
 #Question 12
